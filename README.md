@@ -26,10 +26,10 @@ compute_geodesic_distance(
 
 # The points are assumed to already be in habitat's coordinate frame,
 # if they are in the mp3d coordinate frame instead, you can use
-# the habitat_to_mp3d helper function
-from habitat_sim_geodesic import habitat_to_mp3d
+# the mp3d_to_habitat helper function
+from habitat_sim_geodesic import mp3d_to_habitat
 
 pt_mp3d = ...
-pt_habitat = habitat_to_mp3d(pt_mp3d)
+pt_habitat = mp3d_to_habitat(pt_mp3d)
 
 ```
