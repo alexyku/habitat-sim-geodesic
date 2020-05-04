@@ -132,3 +132,4 @@ dmypy.json
 .ccls-cache/
 .autoenv*
 habitat_sim_geodesic/.bindings.cpp.cppimporthash
+habitat_sim_geodesic/.rendered.bindings.cpp
