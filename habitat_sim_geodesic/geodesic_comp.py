@@ -40,6 +40,8 @@ class GeodesicDistanceComputer(metaclass=Singleton):
 
     def compute_distance(self, scene_id, start_pt, end_pt):
         path = ShortestPath()
+        path.requested_start = start_pt
+        path.requested_end = end_pt
 
         self._get_pathfinder(scene_id).find_path(path)
 
