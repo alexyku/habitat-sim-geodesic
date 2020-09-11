@@ -28,7 +28,7 @@ exclude = '''
 
 [tool.poetry]
 name = "habitat-sim-geodesic"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Erik Wijmans <etw@gatech.edu>"]
 include = ["habitat_sim_geodesic/navmeshes/*", "habitat_sim_geodesic/bindings.cpp", "habitat_sim_geodesic/csrc/*"]
