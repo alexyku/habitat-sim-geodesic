@@ -47,6 +47,9 @@ class GeodesicDistanceComputer(metaclass=Singleton):
 
         return path.geodesic_distance
 
+    def is_navigable(self, scene_id, pt):
+        return self._get_pathfinder(scene_id).is_navigable(pt)
+
 
 def compute_geodesic_distance(scene_id, start_pt, end_pt):
     r"""Comptues the geodesic distance between two points
@@ -63,3 +66,7 @@ def compute_geodesic_distance(scene_id, start_pt, end_pt):
     :return: The geodesic distance between the two points
     """
     return GeodesicDistanceComputer().compute_distance(scene_id, start_pt, end_pt)
+
+
+def is_navigable(scene_id, pt):
+    return GeodesicDistanceComputer().is_navigable(scene_id, pt)
