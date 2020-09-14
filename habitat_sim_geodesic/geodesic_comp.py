@@ -50,6 +50,9 @@ class GeodesicDistanceComputer(metaclass=Singleton):
     def is_navigable(self, scene_id, pt):
         return self._get_pathfinder(scene_id).is_navigable(pt)
 
+    def snap_point(self, scene_id, pt):
+        return self._get_pathfinder(scene_id).snap_point(pt)
+
 
 def compute_geodesic_distance(scene_id, start_pt, end_pt):
     r"""Comptues the geodesic distance between two points
@@ -70,3 +73,7 @@ def compute_geodesic_distance(scene_id, start_pt, end_pt):
 
 def is_navigable(scene_id, pt):
     return GeodesicDistanceComputer().is_navigable(scene_id, pt)
+
+
+def snap_point(scene_id, pt):
+    return GeodesicDistanceComputer().snap_point(scene_id, pt)
