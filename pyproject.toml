@@ -34,8 +34,8 @@ authors = ["Erik Wijmans <etw@gatech.edu>"]
 include = ["habitat_sim_geodesic/navmeshes/*", "habitat_sim_geodesic/bindings.cpp", "habitat_sim_geodesic/csrc/*"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-pybind11 = "^2.4.3"
+python = "^3.6"
+pybind11 = "^2.4.3,<2.6"
 cppimport = "^18.11.8"
 numpy = "^1.18.2"
 numpy-quaternion = "^2019.12.11"
