@@ -189,7 +189,10 @@ struct PathFinder::Impl {
 
   bool saveNavMesh(const std::string& path);
 
-  bool isLoaded() const { return navMesh_ != nullptr; };
+  bool isLoaded() const {
+    return navMesh_ != nullptr && navQuery_ != nullptr && filter_ != nullptr &&
+           islandSystem_ != nullptr;
+  };
 
   void seed(uint32_t newSeed);
 

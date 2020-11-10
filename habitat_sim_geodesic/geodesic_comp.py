@@ -1,3 +1,5 @@
+from pathlib import Path
+import collections
 import os.path as osp
 
 import cppimport.import_hook
@@ -15,18 +17,23 @@ class Singleton(type):
 
 
 class GeodesicDistanceComputer(metaclass=Singleton):
-    def __init__(self):
-        self._pathfinders = {}
+    ROOT_DIR = Path(__file__).parent.absolute()
+    NAVMESH_DIR = ROOT_DIR.joinpath("navmeshes")
 
-    def _get_pathfinder(self, scene_id) -> PathFinder:
+    def __init__(self):
+        self._pathfinders = collections.OrderedDict()
+        self._cache_size = 1
+
+    def _get_pathfinder(self, scene_id: str) -> PathFinder:
         scene_name = osp.splitext(osp.basename(scene_id))[0]
 
         if scene_name not in self._pathfinders:
-            navmesh = osp.join(
-                osp.dirname(__file__), "navmeshes", scene_name + ".navmesh"
-            )
+            if len(self._pathfinders) == self._cache_size:
+                self._pathfinders.popitem(last=True)
+
+            navmesh = self.NAVMESH_DIR.joinpath(scene_name + ".navmesh")
             pf = PathFinder()
-            pf.load_nav_mesh(navmesh)
+            pf.load_nav_mesh(str(navmesh))
 
             if not pf.is_loaded:
                 raise RuntimeError(
@@ -36,6 +43,7 @@ class GeodesicDistanceComputer(metaclass=Singleton):
 
             self._pathfinders[scene_name] = pf
 
+        self._pathfinders.move_to_end(scene_name, last=False)
         return self._pathfinders[scene_name]
 
     def compute_distance(self, scene_id, start_pt, end_pt):
