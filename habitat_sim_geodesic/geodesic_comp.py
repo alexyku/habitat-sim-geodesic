@@ -76,6 +76,7 @@ def compute_geodesic_distance(scene_id, start_pt, end_pt):
 
     :return: The geodesic distance between the two points
     """
+    print(scene_id, start_pt, end_pt)
     return GeodesicDistanceComputer().compute_distance(scene_id, start_pt, end_pt)
 
 

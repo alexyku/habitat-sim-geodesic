@@ -7,6 +7,7 @@
 #include <unordered_map>
 
 #include <cstdio>
+#include <iostream>
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <limits>
@@ -513,10 +514,14 @@ std::tuple<float, std::vector<vec3f>> PathFinder::Impl::findPathInternal(
     return std::make_tuple(0.0f, std::vector<vec3f>{});
   }
 
+  std::cout << "Checking for connection between " << startRef << " and "
+            << endRef << std::endl;
   // Check if there is a path between the start and any of the ends
   if (!islandSystem_->hasConnection(startRef, endRef)) {
-    return std::make_tuple(std::numeric_limits<float>::infinity(),
-                           std::vector<vec3f>{});
+    std::cout << "No connection! Trying findPath anyways" << std::endl;
+
+    /* return std::make_tuple(std::numeric_limits<float>::infinity(),
+                           std::vector<vec3f>{}); */
   }
 
   static const int MAX_POLYS = 256;
@@ -527,6 +532,8 @@ std::tuple<float, std::vector<vec3f>> PathFinder::Impl::findPathInternal(
       navQuery_->findPath(startRef, endRef, pathStart.data(), pathEnd.data(),
                           filter_.get(), polys, &numPolys, MAX_POLYS);
   if (status != DT_SUCCESS || numPolys == 0) {
+    std::cout << "findPath failure! numPolys: " << numPolys
+              << " dtStatus: " << status << std::endl;
     return std::make_tuple(std::numeric_limits<float>::infinity(),
                            std::vector<vec3f>{});
   }
@@ -537,6 +544,8 @@ std::tuple<float, std::vector<vec3f>> PathFinder::Impl::findPathInternal(
                                        numPolys, points[0].data(), 0, 0,
                                        &numPoints, MAX_POLYS);
   if (status != DT_SUCCESS || numPoints == 0) {
+    std::cout << "findStraightPath failure! numPoints: " << numPoints
+              << " dtStatus: " << status << std::endl;
     return std::make_tuple(std::numeric_limits<float>::infinity(),
                            std::vector<vec3f>{});
   }
@@ -560,6 +569,8 @@ bool PathFinder::Impl::findPath(MultiGoalShortestPath& path) {
       projectToPoly(path.requestedStart, navQuery_.get(), filter_.get());
 
   if (status != DT_SUCCESS || startRef == 0) {
+    std::cout << "Failed to snap start point.  dtStatus: " << status
+              << std::endl;
     return false;
   }
 
@@ -572,6 +583,8 @@ bool PathFinder::Impl::findPath(MultiGoalShortestPath& path) {
         projectToPoly(rqEnd, navQuery_.get(), filter_.get());
 
     if (status != DT_SUCCESS || endRefs.back() == 0) {
+      std::cout << "Failed to snap end point.  dtStatus: " << status
+                << std::endl;
       return false;
     }
   }
