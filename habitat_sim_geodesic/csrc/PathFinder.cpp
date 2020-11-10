@@ -514,11 +514,11 @@ std::tuple<float, std::vector<vec3f>> PathFinder::Impl::findPathInternal(
     return std::make_tuple(0.0f, std::vector<vec3f>{});
   }
 
-  std::cout << "Checking for connection between " << startRef << " and "
-            << endRef << std::endl;
   // Check if there is a path between the start and any of the ends
   if (!islandSystem_->hasConnection(startRef, endRef)) {
-    std::cout << "No connection! Trying findPath anyways" << std::endl;
+    std::cout << "No connection between " << startRef << " and " << endRef
+              << std::endl;
+    std::cout << "Trying findPath anyways" << std::endl;
 
     /* return std::make_tuple(std::numeric_limits<float>::infinity(),
                            std::vector<vec3f>{}); */
