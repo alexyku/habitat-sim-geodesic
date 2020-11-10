@@ -81,6 +81,8 @@ def compute_geodesic_distance(scene_id, start_pt, end_pt):
     if not math.isfinite(dist):
         print(scene_id, start_pt, end_pt)
 
+    return dist
+
 
 def is_navigable(scene_id, pt):
     return GeodesicDistanceComputer().is_navigable(scene_id, pt)
