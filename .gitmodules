@@ -1,0 +1,3 @@
+[submodule "habitat_sim_geodesic/navmeshes"]
+	path = habitat_sim_geodesic/navmeshes
+	url = https://github.com/erikwijmans/habitat-sim-geodesic-navmeshes.git
