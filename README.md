@@ -1,5 +1,7 @@
 # habitat-sim-geodesic
 
+**Note:**  This is open source solely due to requirements for it's use in evaluation VLN-CE and RxR.  It is not intended for general use and no support will be provided.
+
 ## Install
 
 ```bash
